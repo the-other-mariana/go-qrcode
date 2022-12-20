@@ -5,7 +5,7 @@ package qrcode
 
 import (
 	bitset "github.com/the-other-mariana/go-qrcode/bitset"
-	"math"
+	//"math"
 	//qr "github.com/the-other-mariana/go-qrcode"
 )
 
@@ -72,7 +72,7 @@ var (
 	}
 
 	// TODO custom this
-	/*
+	
 	finderPattern = [][]bool{
 		{b1, b1, b1, b1, b1, b1, b1},
 		{b1, b0, b0, b0, b0, b0, b1},
@@ -83,13 +83,18 @@ var (
 		{b1, b1, b1, b1, b1, b1, b1},
 	}
 	finderPatternSize = 7
-	*/
-	finderPatternSize = 7
+	
+	//finderPatternSize = 7 //20
 
+	// 21
 	finderPatternHorizontalBorder = [][]bool{
-		{b0, b0, b0, b0, b0, b0, b0, b0},
+		{b0, b0, b0, b0, b0, 
+		b0, b0, b0}, /*b0, b0, 
+		b0, b0, b0, b0, b0, 
+		b0, b0, b0, b0, b0, b0},*/
 	}
 
+	// 21
 	finderPatternVerticalBorder = [][]bool{
 		{b0},
 		{b0},
@@ -99,6 +104,20 @@ var (
 		{b0},
 		{b0},
 		{b0},
+		/*
+		{b0},
+		{b0},
+		{b0},
+		{b0},
+		{b0},
+		{b0},
+		{b0},
+		{b0},
+		{b0},
+		{b0},
+		{b0},
+		{b0},
+		{b0},*/
 	}
 
 	alignmentPattern = [][]bool{
@@ -111,7 +130,7 @@ var (
 )
 
 
-
+/*
 func Circle(mtx [][]bool, size int)  {
 	step := 0.01
 	middle := int(float64(size) / 2.0)
@@ -131,7 +150,7 @@ func Circle(mtx [][]bool, size int)  {
 	}
 	
 }
-
+*/
 
 func buildRegularSymbol(version qrCodeVersion, mask int,
 	data *bitset.Bitset, includeQuietZone bool) (*symbol, error) {
@@ -166,11 +185,13 @@ func buildRegularSymbol(version qrCodeVersion, mask int,
 
 func (m *regularSymbol) addFinderPatterns() {
 	fpSize := finderPatternSize
+	/*
 	finderPattern := make([][]bool, s)
 	for i := range finderPattern {
 		finderPattern[i] = make([]bool, s)
 	}
 	Circle(finderPattern, s)
+	*/
 	fp := finderPattern
 	fpHBorder := finderPatternHorizontalBorder
 	fpVBorder := finderPatternVerticalBorder
