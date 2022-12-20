@@ -6,7 +6,7 @@ package qrcode
 import (
 	"log"
 
-	bitset "github.com/go-qrcode/bitset"
+	bitset "github.com/the-other-mariana/go-qrcode/bitset"
 )
 
 // Error detection/recovery capacity.

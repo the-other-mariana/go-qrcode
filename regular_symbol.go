@@ -4,7 +4,9 @@
 package qrcode
 
 import (
-	bitset "github.com/go-qrcode/bitset"
+	bitset "github.com/the-other-mariana/go-qrcode/bitset"
+	"math"
+	//qr "github.com/the-other-mariana/go-qrcode"
 )
 
 type regularSymbol struct {
@@ -21,6 +23,7 @@ type regularSymbol struct {
 const (
 	b0 = false
 	b1 = true
+	s = 7
 )
 
 var (
@@ -68,6 +71,8 @@ var (
 		{6, 30, 58, 86, 114, 142, 170},
 	}
 
+	// TODO custom this
+	/*
 	finderPattern = [][]bool{
 		{b1, b1, b1, b1, b1, b1, b1},
 		{b1, b0, b0, b0, b0, b0, b1},
@@ -77,7 +82,8 @@ var (
 		{b1, b0, b0, b0, b0, b0, b1},
 		{b1, b1, b1, b1, b1, b1, b1},
 	}
-
+	finderPatternSize = 7
+	*/
 	finderPatternSize = 7
 
 	finderPatternHorizontalBorder = [][]bool{
@@ -103,6 +109,29 @@ var (
 		{b1, b1, b1, b1, b1},
 	}
 )
+
+
+
+func Circle(mtx [][]bool, size int)  {
+	step := 0.01
+	middle := int(float64(size) / 2.0)
+	r1 := 3
+	//r2 := middle
+	
+	for r := 0; r < r1; r++ {
+		for i := 0.0; i < 360.0; i += step {
+			x := float64(r) * math.Cos(float64(i) * 3.1416 / 1.80)
+			y := float64(r) * math.Sin(float64(i) * 3.1416 / 1.80)
+
+			xCentered := int(x) + middle
+			yCentered := int(y) + middle
+
+			mtx[yCentered][xCentered] = b1
+		}
+	}
+	
+}
+
 
 func buildRegularSymbol(version qrCodeVersion, mask int,
 	data *bitset.Bitset, includeQuietZone bool) (*symbol, error) {
@@ -137,6 +166,11 @@ func buildRegularSymbol(version qrCodeVersion, mask int,
 
 func (m *regularSymbol) addFinderPatterns() {
 	fpSize := finderPatternSize
+	finderPattern := make([][]bool, s)
+	for i := range finderPattern {
+		finderPattern[i] = make([]bool, s)
+	}
+	Circle(finderPattern, s)
 	fp := finderPattern
 	fpHBorder := finderPatternHorizontalBorder
 	fpVBorder := finderPatternVerticalBorder

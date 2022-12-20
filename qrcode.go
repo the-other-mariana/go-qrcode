@@ -60,8 +60,8 @@ import (
 	"log"
 	"os"
 
-	bitset "github.com/go-qrcode/bitset"
-	reedsolomon "github.com/go-qrcode/reedsolomon"
+	bitset "github.com/the-other-mariana/go-qrcode/bitset"
+	reedsolomon "github.com/the-other-mariana/go-qrcode/reedsolomon"
 )
 
 // Encode a QR Code and return a raw PNG image.
@@ -154,6 +154,7 @@ type QRCode struct {
 //
 // An error occurs if the content is too long.
 func New(content string, level RecoveryLevel) (*QRCode, error) {
+	fmt.Printf("content to encode: %v\n", content)
 	encoders := []dataEncoderType{dataEncoderType1To9, dataEncoderType10To26,
 		dataEncoderType27To40}
 
