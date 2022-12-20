@@ -183,6 +183,9 @@ func New(content string, level RecoveryLevel) (*QRCode, error) {
 		return nil, errors.New("content too long to encode")
 	}
 
+	// print encoded result
+	fmt.Printf("string: %v\n", (encoded).String())
+
 	q := &QRCode{
 		Content: content,
 
